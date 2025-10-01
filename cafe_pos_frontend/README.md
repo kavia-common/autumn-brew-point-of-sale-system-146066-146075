@@ -1,82 +1,45 @@
-# Lightweight React Template for KAVIA
+# Autumn Brew POS — Champagne Theme
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+Elegant, fall-themed point-of-sale web app for cashiers. This frontend connects to Supabase for menu, orders, and inventory.
+
+## Quick start
+- Copy `.env.example` to `.env` and set:
+  - `REACT_APP_SUPABASE_URL`
+  - `REACT_APP_SUPABASE_KEY`
+- Install and run:
+  - `npm install`
+  - `npm start`
+
+If env vars are not set, the app runs with demo in-memory data for Menu, Orders, and Inventory (read-only).
 
 ## Features
+- Menu browsing with categories and search
+- Order building with cart, automatic totals and tax
+- Checkout flow to create and pay orders
+- Inventory view with quantity adjustments
+- Champagne elegant UI: soft amber gradient, refined rounded cards, subtle shadows
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+## Theme (Champagne)
+- Primary: `#D97706`
+- Secondary: `#F3F4F6`
+- Background: `#FFFBEB`
+- Surface: `#FFFFFF`
+- Text: `#374151`
 
-## Getting Started
+## Supabase schema
+Create these tables (names can be customized if you update service queries):
+- `menu_items(id uuid pk, name text, price_cents int, category text, in_stock bool, sku text, image_url text)`
+- `orders(id uuid pk, created_at timestamp default now(), status text, total_cents int)`
+- `order_items(id uuid pk, order_id uuid fk, item_id uuid fk, quantity int, line_total_cents int)`
+- `inventory(id uuid pk, sku text, name text, quantity int, updated_at timestamp default now())`
 
-In the project directory, you can run:
+Enable Row Level Security (RLS) according to your security needs and policies.
 
-### `npm start`
+## Scripts
+- `npm start` — dev server
+- `npm run build` — production build
+- `npm test` — tests
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
-
-### Components
-
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Notes
+- Payment flow is simplified: paying marks an order as `paid`.
+- This is a cashier-facing UI and does not implement authentication; add Supabase Auth as needed.
