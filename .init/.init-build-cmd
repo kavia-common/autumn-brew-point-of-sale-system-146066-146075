@@ -1,0 +1,4 @@
+{
+    "command": "npm install && npx tsc --noEmit && npm test -- --ci",
+    "working_directory": "/home/kavia/workspace/code-generation/autumn-brew-point-of-sale-system-146066-146075/cafe_pos_frontend"
+}
